@@ -14,8 +14,10 @@ with open(path, encoding='utf-8') as f:
 basename = os.path.basename(path)
 filename = os.path.splitext(basename)[0]
 
+outputdir = "./output/"
+
 if cmd.args.leave:
-  output = filename+'.md'
+  output = filename + '.md'
 else:
   output = cmd.args.output
 
@@ -54,5 +56,9 @@ for m in meslist:
     continue
   out += f"【{tab}】 {name} : {mention}\n\n"
 
-with open("./output/"+output, mode='w', encoding='utf-8') as f:
+if not os.path.exists(outputdir):
+  os.mkdir(outputdir)
+
+
+with open(outputdir+output, mode='w', encoding='utf-8') as f:
   f.write(out)
