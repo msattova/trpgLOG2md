@@ -54,5 +54,5 @@ for m in meslist:
     continue
   out += f"【{tab}】 {name} : {mention}\n\n"
 
-with open(output, mode='w', encoding='utf-8') as f:
+with open("./output/"+output, mode='w', encoding='utf-8') as f:
   f.write(out)
