@@ -127,5 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
 
-out.md
+=======
+>>>>>>> b979abe3f71f029435acec3b1d58baf5b18dadd5
