@@ -13,7 +13,7 @@ HTMLファイル形式で出力されたTRPGのログをマークダウン形式
 ## 使い方
 
 ```log
-usage: main.py [-h] [-l] [-o [OUTPUT]] [--only ONLY] [--exclude EXCLUDE] filename
+usage: main.py [-h] [-l] [-o [OUTPUT]] [--only ONLY] [--exclude [EXCLUDE ...]] [--notab] filename
 
 HTMLファイル形式のTRPGログをmarkdownにするツールです。
 
@@ -22,9 +22,18 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  -l, --leave           出力ファイル名を入力ファイル名と同じにする
+  -l, --leave           出力ファイル名を入力ファイル名と同じにする （-oオプションは無視されます）
   -o [OUTPUT], --output [OUTPUT]
                         出力ファイル名
   --only ONLY           指定したタブのみ変換
-  --exclude EXCLUDE     指定したタブを除外して変
+  --exclude [EXCLUDE ...]
+                        指定したタブを除外して変換
+  --notab               タブ名を表示しない
 ```
+
+## TODO
+
+- [ ] 文字色を残すオプションの追加（markdown記法では無理なのでHTMLタグとして実装予定）
+- [ ] HUGOショートコードを含めるオプションの追加（HUGO利用者以外には恩恵はありません。ほぼ自分用）
+
+（適宜追記予定）
