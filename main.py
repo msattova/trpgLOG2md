@@ -11,5 +11,4 @@ leave: bool = cmd.args.leave
 output_name = cmd.args.output
 output_dir = './output/'
 
-apcv = app.Convert(path, output_name, output_dir, exclude, only, leave, notab)
-apcv.run()
+app.main(path, output_name, output_dir, exclude, only, leave, notab)

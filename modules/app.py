@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import os
+import re
 
 class Convert():
 
@@ -30,17 +31,19 @@ class Convert():
     messages = self.soup.find_all('p')
     get_inner = slice(1, -1)
     for msg in messages:
-      inlist = []
+      inlist = list()
       for span in msg.find_all('span'):
-        str = span.string
-        if str is not None:
-          str = str.strip()
+        st = str(span)
+        if st is not None:
+          st = re.sub(r'</?span>', '', st.replace('<br/>', '\n')).strip()
         else:
-          str = ''
-        if '#' in str:
-          str = str.replace('#', '\\#')
-        inlist.append(str)
+          st = ''
+        if '#' in st:
+          st = st.replace('#', '\\#')
+        inlist.append(st)
       inlist[0] = inlist[0][get_inner] # タブ名の[]の内側の文字列を取得
+      if re.search('トレーラー', inlist[1]):
+        print(inlist[1])
       self.meslist.append(inlist)
 
   def __make_outstr(self):
@@ -76,3 +79,10 @@ class Convert():
     self.__search_and_get()
     self.__make_outstr()
     self.__out_file()
+
+
+def main(path, output_name='out.md', output_dir='./output/',
+         exclude=None, only=None, leave=False, notab=False):
+  apcv = Convert(path, output_name, output_dir,
+                     exclude, only, leave, notab)
+  apcv.run()
