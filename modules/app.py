@@ -42,8 +42,6 @@ class Convert():
           st = st.replace('#', '\\#')
         inlist.append(st)
       inlist[0] = inlist[0][get_inner] # タブ名の[]の内側の文字列を取得
-      if re.search('トレーラー', inlist[1]):
-        print(inlist[1])
       self.meslist.append(inlist)
 
   def __make_outstr(self):
