@@ -1,28 +1,27 @@
+
+from dataclasses import dataclass
 from bs4 import BeautifulSoup
 import os
 import re
 
-
+@dataclass
 class Convert():
 
-    def __init__(self,
-                 path: str, output_name: str,
-                 output_dir: str,
-                 excludes: list[str],
-                 is_only: bool, is_leave: bool, is_notab: bool):
-        with open(path, encoding='utf-8') as f:
+    path: str
+    output_name: str
+    output_dir: str
+    excludes: list[str]
+    is_only: bool
+    is_leave: bool
+    is_notab: bool
+
+    def __post_init__(self):
+        with open(self.path, encoding='utf-8') as f:
             code = f.read()
 
-        basename = os.path.basename(path)
+        basename = os.path.basename(self.path)
         filename = os.path.splitext(basename)[0]
-
         self.msglist = list()
-        self.output_dir = output_dir
-        self.excludes = excludes
-        self.is_only = is_only
-        self.is_leave = is_leave
-        self.is_notab = is_notab
-        self.output_name = output_name
         self.output_name = filename + '.md' if self.is_leave else self.output_name
 
         self.out_str = f"# {os.path.splitext(self.output_name)[0]}\n\n"
@@ -93,3 +92,18 @@ def main(path, output_name='out.md', output_dir='./output/',
                    exclude, only, leave, notab)
     apcv.run()
 
+
+def get_tab_names(filename: str) -> set:
+    with open(filename, encoding='utf-8') as f:
+        code = f.read()
+    soup = BeautifulSoup(code, 'html.parser')
+    tab_set = set()
+    get_inner_slice = slice(1, -1)
+    for msg in soup.find_all('p'):
+        span = msg.find('span')
+        if span is None:
+            s = ''
+        else:
+            s = span.text.strip()
+        tab_set.add(s[get_inner_slice])
+    return tab_set
