@@ -42,6 +42,14 @@ class Convert():
                            s.replace('<br/>', '\n')).strip()
                 if '#' in s:
                     s = s.replace('#', '\\#')
+                if '*' in s:
+                    s = s.replace('*', '\\*')
+                if '-' in s:
+                    s = s.replace('-', '\\-')
+                if '_' in s:
+                    s = s.replace('_', '\\_')
+                if '>' in s:
+                    s = s.replace('>', '\\>')
                 tmplist.append(s)
             tmplist[0] = tmplist[0][get_inner_slice]  # タブ名の[]の内側の文字列を取得
             msglist.append(tmplist)
