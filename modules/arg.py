@@ -12,12 +12,8 @@ class CmdArg:
                     （-oオプションは無視されます）''')
         self.parser.add_argument('-o', '--output',
                     nargs='?', type=str,
-                    default='out.md',
+                    default='output/out.md',
                     help='出力ファイル名')
-        self.parser.add_argument('-d', '--outdir',
-                    nargs='?', type=str,
-                    default='./output',
-                    help='出力フォルダ名')
         self.parser.add_argument('--only', type=str,
                     default=None,
                     help='指定したタブのみ変換')
