@@ -18,7 +18,10 @@ versionの表記は動作確認した環境でのものになります。
 ## 使い方
 
 ```log
-usage: main.py [-h] [-l] [-o [OUTPUT]] [--only ONLY] [--exclude [EXCLUDE ...]] [--notab] filename
+usage: main.py [-h] [-l] [-o [OUTPUT]] [-d [OUTDIR]] [--only ONLY]
+               [--excludes [EXCLUDES ...]] [--notab] [--blacket BLACKET]
+               [--namedeco NAMEDECO] [-s SETTING]
+               filename
 
 HTMLファイル形式のTRPGログをmarkdownにするツールです。
 
@@ -27,13 +30,20 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  -l, --leave           出力ファイル名を入力ファイル名と同じにする （-oオプションは無視されます）
+  -l, --leave           出力ファイル名を入力ファイル名と同じにする （-oオプションは無視され
+ます）
   -o [OUTPUT], --output [OUTPUT]
                         出力ファイル名
+  -d [OUTDIR], --outdir [OUTDIR]
+                        出力フォルダ名
   --only ONLY           指定したタブのみ変換
-  --exclude [EXCLUDE ...]
+  --excludes [EXCLUDES ...]
                         指定したタブを除外して変換
   --notab               タブ名を表示しない
+  --blacket BLACKET     タブ名を囲む括弧を設定（例：--blacket "【】"）
+  --namedeco NAMEDECO   キャラの名前欄を囲むマークダウン装飾を設定（例： --namedeco "**"）
+  -s SETTING, --setting SETTING
+                        コマンド設定の記述されたtomlファイルを読み込みます（tomlファイルの設定が優先されます）
 ```
 
 ## TODO
