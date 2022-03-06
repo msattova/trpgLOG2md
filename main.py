@@ -12,6 +12,7 @@ if __name__ == '__main__':
     leave: bool = cmd.args.leave
     output_name = cmd.args.output
     blacket = cmd.args.blacket
+    namedeco = cmd.args.namedeco
     output_dir = './output/'
 
     app.main(path,
@@ -21,4 +22,5 @@ if __name__ == '__main__':
             only,
             leave,
             notab,
-            blacket)
+            blacket,
+            namedeco)

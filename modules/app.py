@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import os
 import re
 
+
 @dataclass
 class Convert():
 
@@ -15,6 +16,7 @@ class Convert():
     is_leave: bool
     is_notab: bool
     blacket: str
+    namedeco: str
 
     def __post_init__(self):
         with open(self.path, encoding='utf-8') as f:
@@ -71,7 +73,10 @@ class Convert():
                 continue
             if name == '':  # 名前が空だったときの処理
                 name = ' '
-            out += self._make_linestr(tab, name, mention, self.is_notab, self.blacket)
+            out += self._make_linestr(tab, name, mention,
+                                      self.is_notab,
+                                      self.blacket,
+                                      self.namedeco)
         return out
 
     def _out_file(self, output_dir: str, output_name: str, out_str: str):
@@ -84,10 +89,12 @@ class Convert():
     def _make_linestr(self, tab: str, name: str,
                       mention: str, is_notab=False,
                       blacket='【】', em='**') -> str:
+        open_blacket = blacket[0:int(len(blacket)/2)]
+        close_blacket = blacket[int(len(blacket)/2):len(blacket)]
         if is_notab:
             return f"{em}{name}{em} : {mention}\n\n"
         else:
-            return f"{blacket[0]}{tab}{blacket[1]} {em}{name}{em} : {mention}\n\n"
+            return f"{open_blacket}{tab}{close_blacket} {em}{name}{em} : {mention}\n\n"
 
     def run(self):
         self.msglist = self._search_and_get(self.soup)
@@ -97,9 +104,16 @@ class Convert():
 
 def main(path, output_name='out.md', output_dir='./output/',
          exclude=None, only=None, leave=False, notab=False,
-         blacket='【】'):
-    apcv = Convert(path, output_name, output_dir,
-                   exclude, only, leave, notab, blacket)
+         blacket='【】', namedeco='**'):
+    apcv = Convert(path=path,
+                output_name=output_name,
+                output_dir=output_dir,
+                excludes=exclude,
+                is_only=only,
+                is_leave=leave,
+                is_notab=notab,
+                blacket=blacket,
+                namedeco=namedeco)
     apcv.run()
 
 

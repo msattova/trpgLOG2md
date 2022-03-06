@@ -26,6 +26,9 @@ class CmdArg:
         self.parser.add_argument('--blacket',
                     default="【】", type=str,
                     help='タブ名を囲む括弧を設定（例：--blacket \"【】\"）')
+        self.parser.add_argument('--namedeco',
+                    default='**', type=str,
+                    help='キャラの名前欄を囲むマークダウン装飾を設定（例： --namedeco \"**\"）')
         self.args = self.parser.parse_args()
 
 
