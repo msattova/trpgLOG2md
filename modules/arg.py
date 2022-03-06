@@ -25,7 +25,7 @@ class CmdArg:
                     help='タブ名を表示しない')
         self.parser.add_argument('--blacket',
                     default="【】", type=str,
-                    help='タブ名を囲む括弧を設定（例：--blacket 【】）')
+                    help='タブ名を囲む括弧を設定（例：--blacket \"【】\"）')
         self.args = self.parser.parse_args()
 
 
