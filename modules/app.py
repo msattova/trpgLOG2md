@@ -9,18 +9,20 @@ import re
 class Convert():
 
     path: str
-    output_name: str
-    output_dir: str
-    excludes: list[str]
-    is_only: bool
-    is_leave: bool
-    is_notab: bool
-    blacket: str
-    namedeco: str
+    option_dict: dict
 
     def __post_init__(self):
         with open(self.path, encoding='utf-8') as f:
             code = f.read()
+
+        self.output_name: str = self.option_dict['output']
+        self.output_dir: str = self.option_dict['outdir']
+        self.excludes: list[str] = self.option_dict['excludes']
+        self.is_only: bool = self.option_dict['only']
+        self.is_leave: bool = self.option_dict['leave']
+        self.is_notab: bool = self.option_dict['notab']
+        self.blacket: str = self.option_dict['blacket']
+        self.namedeco: str = self.option_dict['namedeco']
 
         basename = os.path.basename(self.path)
         filename = os.path.splitext(basename)[0]
@@ -83,7 +85,8 @@ class Convert():
         if not os.path.exists(output_dir):
             os.mkdir(output_dir)
 
-        with open(output_dir+output_name, mode='w', encoding='utf-8') as f:
+        with open(os.path.join(output_dir, output_name),
+                            mode='w', encoding='utf-8') as f:
             f.write(out_str)
 
     def _make_linestr(self, tab: str, name: str,
@@ -102,18 +105,8 @@ class Convert():
         self._out_file(self.output_dir, self.output_name, self.out_str)
 
 
-def main(path, output_name='out.md', output_dir='./output/',
-         exclude=None, only=None, leave=False, notab=False,
-         blacket='【】', namedeco='**'):
-    apcv = Convert(path=path,
-                output_name=output_name,
-                output_dir=output_dir,
-                excludes=exclude,
-                is_only=only,
-                is_leave=leave,
-                is_notab=notab,
-                blacket=blacket,
-                namedeco=namedeco)
+def main(path: str, option_dict: dict):
+    apcv = Convert(path=path, option_dict=option_dict)
     apcv.run()
 
 

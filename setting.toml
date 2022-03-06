@@ -1,0 +1,14 @@
+
+[options]
+
+output = "out.md"
+outdir = "."
+
+only = ""
+excludes = []
+
+leave = false
+notab = false
+
+blacket = "**"
+namedeco = "【】"

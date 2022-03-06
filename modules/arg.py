@@ -14,10 +14,14 @@ class CmdArg:
                     nargs='?', type=str,
                     default='out.md',
                     help='出力ファイル名')
+        self.parser.add_argument('-d', '--outdir',
+                    nargs='?', type=str,
+                    default='./output',
+                    help='出力フォルダ名')
         self.parser.add_argument('--only', type=str,
                     default=None,
                     help='指定したタブのみ変換')
-        self.parser.add_argument('--exclude', action='extend', type=str,
+        self.parser.add_argument('--excludes', action='extend', type=str,
                     default=None, nargs='*',
                     help='指定したタブを除外して変換')
         self.parser.add_argument('--notab',
@@ -29,6 +33,9 @@ class CmdArg:
         self.parser.add_argument('--namedeco',
                     default='**', type=str,
                     help='キャラの名前欄を囲むマークダウン装飾を設定（例： --namedeco \"**\"）')
+        self.parser.add_argument('-s', '--setting',
+                    default=None, type=str,
+                    help='コマンド設定の記述されたtomlファイルを読み込みます（tomlファイルの設定が優先されます）')
         self.args = self.parser.parse_args()
 
 
