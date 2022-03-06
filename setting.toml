@@ -1,8 +1,7 @@
 
 [options]
 
-output = "out.md"
-outdir = "."
+output = "output/out.md"
 
 only = ""
 excludes = []

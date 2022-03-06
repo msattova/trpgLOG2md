@@ -16,7 +16,6 @@ class Convert():
             code = f.read()
 
         self.output_name: str = self.option_dict['output']
-        self.output_dir: str = self.option_dict['outdir']
         self.excludes: list[str] = self.option_dict['excludes']
         self.is_only: bool = self.option_dict['only']
         self.is_leave: bool = self.option_dict['leave']
@@ -24,12 +23,20 @@ class Convert():
         self.blacket: str = self.option_dict['blacket']
         self.namedeco: str = self.option_dict['namedeco']
 
+        self.output_dir: str = os.path.dirname(self.output_name)
+
+        if self.output_dir == '':
+            self.output_dir = '.'
+
         basename = os.path.basename(self.path)
         filename = os.path.splitext(basename)[0]
         self.msglist = list()
-        self.output_name = filename + '.md' if self.is_leave else self.output_name
+        if self.is_leave:
+            self.output_name = f'{filename}.md'
+        out_basename = os.path.basename(self.output_name)
+        out_filename = os.path.splitext(out_basename)[0]
 
-        self.out_str = f"# {os.path.splitext(self.output_name)[0]}\n\n"
+        self.out_str = f"# {out_filename}\n\n"
         self.soup = BeautifulSoup(code, 'html.parser')
 
     def _search_and_get(self, soup) -> list[str]:
@@ -85,8 +92,7 @@ class Convert():
         if not os.path.exists(output_dir):
             os.mkdir(output_dir)
 
-        with open(os.path.join(output_dir, output_name),
-                            mode='w', encoding='utf-8') as f:
+        with open(os.path.join(output_dir, output_name), mode='w', encoding='utf-8') as f:
             f.write(out_str)
 
     def _make_linestr(self, tab: str, name: str,

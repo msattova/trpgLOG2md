@@ -8,7 +8,6 @@ if __name__ == '__main__':
     path = cmd.args.filename
     options_dict = {
         'output':   cmd.args.output,
-        'outdir':  cmd.args.outdir,
         'only':     cmd.args.only,
         'excludes': cmd.args.excludes,
         'leave':    cmd.args.leave,
