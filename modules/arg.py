@@ -1,4 +1,5 @@
 import argparse
+from email.policy import default
 
 class CmdArg:
     def __init__(self):
@@ -22,6 +23,9 @@ class CmdArg:
         self.parser.add_argument('--notab',
                     default=False, action='store_true',
                     help='タブ名を表示しない')
+        self.parser.add_argument('--blacket',
+                    default="【】", type=str,
+                    help='タブ名を囲む括弧を設定（例：--blacket 【】）')
         self.args = self.parser.parse_args()
 
 

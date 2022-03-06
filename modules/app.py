@@ -14,6 +14,7 @@ class Convert():
     is_only: bool
     is_leave: bool
     is_notab: bool
+    blacket: str
 
     def __post_init__(self):
         with open(self.path, encoding='utf-8') as f:
@@ -70,7 +71,7 @@ class Convert():
                 continue
             if name == '':  # 名前が空だったときの処理
                 name = ' '
-            out += self._make_linestr(tab, name, mention, self.is_notab)
+            out += self._make_linestr(tab, name, mention, self.is_notab, self.blacket)
         return out
 
     def _out_file(self, output_dir: str, output_name: str, out_str: str):
@@ -82,7 +83,7 @@ class Convert():
 
     def _make_linestr(self, tab: str, name: str,
                       mention: str, is_notab=False,
-                      blacket=('【', '】'), em='**') -> str:
+                      blacket='【】', em='**') -> str:
         if is_notab:
             return f"{em}{name}{em} : {mention}\n\n"
         else:
@@ -95,9 +96,10 @@ class Convert():
 
 
 def main(path, output_name='out.md', output_dir='./output/',
-         exclude=None, only=None, leave=False, notab=False):
+         exclude=None, only=None, leave=False, notab=False,
+         blacket='【】'):
     apcv = Convert(path, output_name, output_dir,
-                   exclude, only, leave, notab)
+                   exclude, only, leave, notab, blacket)
     apcv.run()
 
 

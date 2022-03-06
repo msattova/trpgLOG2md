@@ -11,6 +11,14 @@ if __name__ == '__main__':
     notab: bool = cmd.args.notab
     leave: bool = cmd.args.leave
     output_name = cmd.args.output
+    blacket = cmd.args.blacket
     output_dir = './output/'
 
-    app.main(path, output_name, output_dir, exclude, only, leave, notab)
+    app.main(path,
+            output_name,
+            output_dir,
+            exclude,
+            only,
+            leave,
+            notab,
+            blacket)
